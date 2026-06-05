@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admiral Motor Insurance - Vehicle Information</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap');
+    
+    :root {
+      --blue: #1A6DF0;
+      --blue-dark: #155FD6;
+      --blue-light: #EAF1FE;
+      --blue-lighter: #CFE0FD;
+      --ink-900: #0B1736;
+      --ink-800: #122042;
+      --ink-950: #07122A;
+      --coral: #FF6A5A;
+      --n0: #FFFFFF;
+      --n25: #F8F9FC;
+      --n50: #F1F3F9;
+      --n100: #E6E9F2;
+      --n200: #D4D9E6;
+      --n300: #B7C0D4;
+      --n400: #8B97B2;
+      --n500: #5F6C8A;
+      --n600: #44516E;
+      --fdisplay: 'Sora', system-ui, sans-serif;
+      --fsans: 'Hanken Grotesk', system-ui, sans-serif;
+      --sh-sm: 0 1px 3px rgba(11, 23, 54, 0.08), 0 1px 2px rgba(11, 23, 54, 0.04);
+      --sh-md: 0 4px 12px rgba(11, 23, 54, 0.10), 0 2px 4px rgba(11, 23, 54, 0.05);
+      --sh-lg: 0 12px 28px rgba(11, 23, 54, 0.14), 0 4px 8px rgba(11, 23, 54, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, #f8f9fc 0%, #f1f3f9 100%);
+      color: var(--ink-900);
+      font-family: var(--fsans);
+      font-size: 16px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header with logo */
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+      margin-top: 20px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .logo-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 800;
+      font-size: 24px;
+      font-family: var(--fdisplay);
+      box-shadow: var(--sh-md);
+    }
+
+    .logo-text {
+      font-family: var(--fdisplay);
+      font-weight: 700;
+      font-size: 24px;
+      color: var(--ink-900);
+      letter-spacing: -0.02em;
+    }
+
+    .header h1 {
+      font-family: var(--fdisplay);
+      font-weight: 700;
+      font-size: 28px;
+      margin: 20px 0 8px;
+      color: var(--ink-900);
+      letter-spacing: -0.01em;
+    }
+
+    .header p {
+      color: var(--n500);
+      font-size: 15px;
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    /* Form card */
+    .form-card {
+      background: var(--n0);
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: var(--sh-lg);
+      border: 1px solid var(--n100);
+    }
+
+    /* Form group */
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    .form-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 8px;
+      color: var(--ink-900);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid var(--n200);
+      border-radius: 10px;
+      font-family: var(--fsans);
+      font-size: 15px;
+      color: var(--ink-900);
+      background: var(--n0);
+      transition: all 0.2s ease;
+      font-weight: 500;
+    }
+
+    input::placeholder {
+      color: var(--n400);
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(26, 109, 240, 0.1), 0 0 0 1.5px var(--blue);
+    }
+
+    input:hover:not(:focus) {
+      border-color: var(--n300);
+    }
+
+    /* Submit button */
+    .button-group {
+      margin-top: 32px;
+      display: flex;
+      gap: 12px;
+    }
+
+    button {
+      flex: 1;
+      padding: 13px 20px;
+      border: none;
+      border-radius: 10px;
+      font-family: var(--fsans);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+      color: white;
+      box-shadow: var(--sh-md);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--sh-lg);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+      box-shadow: var(--sh-sm);
+    }
+
+    .btn-secondary {
+      background: var(--n50);
+      color: var(--ink-900);
+      border: 1.5px solid var(--n200);
+    }
+
+    .btn-secondary:hover {
+      background: var(--n100);
+      border-color: var(--n300);
+    }
+
+    /* Success message (hidden by default) */
+    .success-message {
+      display: none;
+      background: #E8F5E9;
+      border: 1.5px solid #81C784;
+      color: #1B5E20;
+      padding: 16px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    .success-message.show {
+      display: block;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px 0;
+      color: var(--n500);
+      font-size: 12px;
+      margin-top: 30px;
+    }
+
+    footer a {
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .container {
+        padding: 16px;
+        margin-top: 0;
+      }
+
+      .form-card {
+        padding: 24px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+
+      .header h1 {
+        font-size: 24px;
+      }
+
+      .logo {
+        flex-direction: column;
+      }
+
+      .button-group {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <div class="logo">
+      <div class="logo-icon">⚓</div>
+      <div class="logo-text">Admiral</div>
+    </div>
+    <h1>Vehicle Information</h1>
+    <p>Help us get to know your vehicle better for an accurate quote</p>
+  </div>
+
+  <div class="form-card">
+    <div class="success-message" id="successMessage">
+      ✓ Your information has been saved successfully!
+    </div>
+
+    <form id="vehicleForm">
+      <!-- Name Row -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="firstName">First Name</label>
+          <input 
+            type="text" 
+            id="firstName" 
+            name="firstName" 
+            placeholder="John" 
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="lastName">Last Name</label>
+          <input 
+            type="text" 
+            id="lastName" 
+            name="lastName" 
+            placeholder="Smith" 
+            required
+          >
+        </div>
+      </div>
+
+      <!-- Vehicle Info Row -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="carMake">Car Make</label>
+          <input 
+            type="text" 
+            id="carMake" 
+            name="carMake" 
+            placeholder="e.g. Ford, BMW" 
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="carModel">Car Model</label>
+          <input 
+            type="text" 
+            id="carModel" 
+            name="carModel" 
+            placeholder="e.g. Fiesta, 3 Series" 
+            required
+          >
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="button-group">
+        <button type="submit" class="btn-primary">Get Quote</button>
+        <button type="reset" class="btn-secondary">Clear</button>
+      </div>
+    </form>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Admiral. <a href="#">Privacy Policy</a> • <a href="#">Terms</a></p>
+  </footer>
+</div>
+
+<script>
+  const form = document.getElementById('vehicleForm');
+  const successMessage = document.getElementById('successMessage');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // Collect form data
+    const firstName = document.getElementById('firstName').value;
+    const lastName = document.getElementById('lastName').value;
+    const carMake = document.getElementById('carMake').value;
+    const carModel = document.getElementById('carModel').value;
+
+    // Log to console (in production, this would be sent to a server)
+    console.log('Form submitted:', {
+      firstName,
+      lastName,
+      carMake,
+      carModel,
+      timestamp: new Date().toISOString()
+    });
+
+    // Show success message
+    successMessage.classList.add('show');
+    
+    // Hide success message after 4 seconds
+    setTimeout(() => {
+      successMessage.classList.remove('show');
+    }, 4000);
+
+    // Optional: Reset form or redirect
+    // form.reset();
+  });
+
+  // Hide success message when user starts typing
+  const inputs = form.querySelectorAll('input');
+  inputs.forEach(input => {
+    input.addEventListener('focus', () => {
+      successMessage.classList.remove('show');
+    });
+  });
+</script>
+
+<script data-client="6931f48067a56acbebb11b24" data-flow-id="agent-23" src="https://assets.eself.ai/small-agent/prod/bundle.js" data-small-agent="true"></script>
+
+</body>
+</html>

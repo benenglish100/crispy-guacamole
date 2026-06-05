@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admiral Screen-Validation Demo — Build Storyboard (INTERNAL)</title>
+<!--
+  INTERNAL BUILD STORYBOARD — for Derek's review, then Ben's build.
+  NOT customer-facing. UC2 screen-share assessment. Kaltura design tokens.
+  Source of truth: Admiral_ScreenValidation_Storyboard_2026-06-02.md
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+  :root{
+    --blue:#1A6DF0; --blue-600:#155FD6; --blue-50:#EAF1FE; --blue-100:#CFE0FD;
+    --ink-900:#0B1736; --ink-800:#122042; --ink-950:#07122A;
+    --coral:#FF6A5A; --amber:#FFC247; --teal:#15C2C0; --violet:#6E56F6;
+    --n0:#FFFFFF; --n25:#F8F9FC; --n50:#F1F3F9; --n100:#E6E9F2; --n200:#D4D9E6;
+    --n300:#B7C0D4; --n400:#8B97B2; --n500:#5F6C8A; --n600:#44516E; --n700:#313C56;
+    --success:#1FB877; --warning:#FFB020; --danger:#E5484D;
+    --fg1:var(--ink-900); --fg2:var(--n600); --fg3:var(--n400);
+    --border:var(--n100); --border2:var(--n200);
+    --fdisplay:'Sora',system-ui,sans-serif; --fsans:'Hanken Grotesk',system-ui,sans-serif; --fmono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+    --sh-sm:0 1px 3px rgba(11,23,54,.08),0 1px 2px rgba(11,23,54,.04);
+    --sh-md:0 4px 12px rgba(11,23,54,.10),0 2px 4px rgba(11,23,54,.05);
+    --sh-lg:0 12px 28px rgba(11,23,54,.14),0 4px 8px rgba(11,23,54,.06);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--n25);color:var(--fg1);font-family:var(--fsans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+  a{color:var(--blue-600);text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+  /* ---- header ---- */
+  header{background:linear-gradient(135deg,var(--ink-950),var(--ink-800) 70%,#15306b);color:#fff;padding:48px 0 40px;position:relative;overflow:hidden}
+  header::after{content:"";position:absolute;right:-80px;top:-80px;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(26,109,240,.35),transparent 70%)}
+  .badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,106,90,.16);color:#FFD3CC;border:1px solid rgba(255,106,90,.4);padding:5px 12px;border-radius:999px;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+  .eyebrow{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#8FB6F6;margin:20px 0 10px}
+  header h1{font-family:var(--fdisplay);font-weight:800;font-size:40px;line-height:1.08;letter-spacing:-.02em;margin:0 0 14px;max-width:18ch}
+  header .sub{color:#C7D3EA;font-size:18px;line-height:1.6;max-width:60ch}
+  .metarow{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:22px;font-size:13.5px;color:#A9B8D6}
+  .metarow b{color:#fff;font-weight:600}
+  .thesis{margin-top:26px;padding:18px 20px;border-left:3px solid var(--coral);background:rgba(255,255,255,.05);border-radius:0 10px 10px 0;font-size:16.5px;line-height:1.6;color:#E7EDF8;max-width:74ch}
+
+  /* ---- sticky nav ---- */
+  nav.stages{position:sticky;top:0;z-index:20;background:rgba(248,249,252,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);padding:10px 0}
+  nav.stages .wrap{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  nav.stages a{font-size:13px;font-weight:600;color:var(--fg2);padding:6px 12px;border-radius:999px;border:1px solid var(--border2)}
+  nav.stages a:hover{background:var(--blue-50);color:var(--blue-600);border-color:var(--blue-100)}
+  nav.stages .nlabel{font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--fg3);margin-right:4px;font-weight:600}
+
+  /* ---- stage map ---- */
+  .map{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:34px 0 8px}
+  .map .col{background:var(--n0);border:1px solid var(--border);border-radius:14px;padding:18px;box-shadow:var(--sh-sm);position:relative}
+  .map .col .tag{font-family:var(--fmono);font-size:11px;font-weight:600;color:var(--blue);letter-spacing:.05em}
+  .map .col h4{font-family:var(--fdisplay);font-size:16px;margin:8px 0 6px}
+  .map .col p{font-size:13px;color:var(--fg2);margin:0}
+  .map .col .scenes{margin-top:10px;font-size:11.5px;color:var(--fg3);font-family:var(--fmono)}
+  .map .col.s3{border-color:var(--blue-100);box-shadow:0 0 0 2px var(--blue-50),var(--sh-sm)}
+
+  /* ---- section headers ---- */
+  .stage-head{display:flex;align-items:center;gap:14px;margin:48px 0 18px;padding-top:8px}
+  .stage-head .num{flex:none;width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-family:var(--fdisplay);font-weight:800;color:#fff;font-size:18px;background:var(--blue)}
+  .stage-head.s2 .num{background:var(--violet)} .stage-head.s3 .num{background:var(--coral)}
+  .stage-head h2{font-family:var(--fdisplay);font-size:26px;font-weight:700;margin:0;letter-spacing:-.01em}
+  .stage-head .st{font-size:13px;color:var(--fg2);margin-top:2px}
+
+  /* ---- scene card ---- */
+  .scene{background:var(--n0);border:1px solid var(--border);border-radius:16px;box-shadow:var(--sh-sm);margin:16px 0;overflow:hidden;display:grid;grid-template-columns:minmax(0,420px) 1fr}
+  .scene.reveal{border-color:var(--danger);box-shadow:0 0 0 2px rgba(229,72,77,.18),var(--sh-md)}
+  .scene.hinge{border-color:var(--violet);box-shadow:0 0 0 2px rgba(110,86,246,.16),var(--sh-md)}
+  .viz{background:linear-gradient(160deg,#0d1a36,#152a55);padding:22px;display:flex;flex-direction:column;gap:12px;min-height:230px;justify-content:center}
+  .detail{padding:22px 24px}
+  .scene .sc-no{font-family:var(--fmono);font-size:12px;color:var(--blue);font-weight:600}
+  .scene .sc-title{font-family:var(--fdisplay);font-size:19px;font-weight:700;margin:4px 0 0;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .star{display:inline-flex;align-items:center;gap:5px;background:#FFF4D6;color:#9A6B00;border:1px solid var(--amber);font-size:11px;font-weight:700;padding:2px 9px;border-radius:999px;text-transform:uppercase;letter-spacing:.04em}
+  .star.red{background:#FDECEC;color:#B4282C;border-color:#F3B3B5}
+  .star.violet{background:#EFEBFE;color:#4B33C9;border-color:#C9BEFA}
+
+  .field{margin-top:14px}
+  .field .k{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--fg3);margin-bottom:5px}
+  .field.avatar .k{color:var(--blue-600)}
+  .bubble{background:var(--blue-50);border:1px solid var(--blue-100);border-radius:4px 12px 12px 12px;padding:11px 14px;font-size:14.5px;color:#10306e;line-height:1.5}
+  .field p{margin:0;font-size:14px;color:var(--fg1);line-height:1.55}
+  .field.data p,.field.builds p{color:var(--fg2);font-size:13.5px}
+  .field.builds .k{color:var(--teal)}
+  code,.mono{font-family:var(--fmono);font-size:.88em;background:var(--n50);padding:1px 5px;border-radius:4px;color:#234}
+  .warn{margin-top:14px;background:#FFF8EC;border:1px solid #FCE3B6;border-left:3px solid var(--warning);border-radius:0 8px 8px 0;padding:10px 13px;font-size:12.5px;color:#7A5600;line-height:1.5}
+  .warn b{color:#5E4300}
+  .note{margin-top:14px;background:#FBF0F0;border:1px solid #F3C9CB;border-radius:8px;padding:10px 13px;font-size:12.5px;color:#8A2C30;line-height:1.5}
+
+  /* ---- mini mockups (inside .viz) ---- */
+  .vlabel{font-family:var(--fmono);font-size:10.5px;color:#7FA8E8;letter-spacing:.05em;text-transform:uppercase}
+  .browser{background:#fff;border-radius:9px;overflow:hidden;box-shadow:var(--sh-lg)}
+  .btab{background:#eef1f7;padding:7px 10px;display:flex;align-items:center;gap:6px;border-bottom:1px solid #e2e6ef}
+  .dot{width:8px;height:8px;border-radius:50%}
+  .bbody{padding:13px}
+  .titlestrip{font-size:11px;font-weight:700;color:#10306e;background:var(--blue-50);border:1px solid var(--blue-100);border-radius:6px;padding:6px 9px;display:inline-block}
+  .ava{display:flex;align-items:center;gap:10px}
+  .ava .face{width:38px;height:38px;border-radius:50%;flex:none;background:radial-gradient(circle at 35% 30%,#7FB0FF,#1A6DF0 70%);box-shadow:0 0 0 3px rgba(255,255,255,.15)}
+  .ava .who{font-size:11.5px;color:#0B1736;font-weight:600}
+  .ava .who small{display:block;color:#5F6C8A;font-weight:400;font-size:10.5px}
+  .pcard{font-size:11px;color:#1E2740}
+  .prow{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px dashed #e2e6ef}
+  .prow:last-child{border:0}
+  .prow .lab{color:#5F6C8A}
+  .prow .val{font-weight:600;font-family:var(--fmono);font-size:10.5px}
+  .transcript{font-size:11px;color:#313C56;line-height:1.55}
+  .transcript .t-c{color:var(--violet);font-weight:600}
+  .transcript .hl{background:#FFF4D6;border-radius:3px;padding:0 3px}
+  .check{display:flex;align-items:center;gap:9px;font-size:11.5px;color:#1E2740;padding:7px 9px;border-radius:8px;background:#fff;border:1px solid #e2e6ef;margin-top:7px}
+  .check .ic{width:18px;height:18px;border-radius:50%;flex:none;display:grid;place-items:center;font-size:11px;font-weight:700;color:#fff}
+  .check.pass .ic{background:var(--success)} .check.flag .ic{background:var(--danger)} .check.pend .ic{background:var(--n300)}
+  .check.flag{background:#FDECEC;border-color:#F3B3B5;color:#8A2C30;font-weight:600}
+  .check .w{margin-left:auto;font-family:var(--fmono);font-size:9.5px;color:#8B97B2;text-transform:uppercase}
+  .check.flag .w{color:#B4282C}
+  .ghdr{font-family:var(--fmono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#1FB877;font-weight:600;margin:2px 0 2px}
+  .flip{display:flex;align-items:center;gap:8px;font-size:10px;font-family:var(--fmono);color:#7FA8E8}
+  .meter{height:12px;border-radius:999px;background:#e2e6ef;overflow:hidden;position:relative}
+  .meter .fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--danger),#ff7b7f)}
+  .meter .thr{position:absolute;top:-3px;bottom:-3px;width:2px;background:#0B1736}
+  .banner{background:#FDECEC;border:1px solid #F3B3B5;color:#8A2C30;font-size:11px;font-weight:600;border-radius:8px;padding:8px 11px;display:flex;align-items:center;gap:7px}
+  .queue{background:#fff;border:1px solid #e2e6ef;border-radius:8px;padding:9px 11px;font-size:11px}
+  .queue .qrow{display:flex;align-items:center;gap:8px;color:#1E2740}
+  .qflag{width:7px;height:7px;border-radius:50%;background:var(--danger)}
+  .sharepane{display:grid;grid-template-columns:1fr 64px;gap:10px;align-items:stretch}
+  .crm{background:#fff;border-radius:8px;border:1px solid #e2e6ef;padding:10px;font-size:10.5px;color:#5F6C8A}
+  .crm .fld{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px dashed #eef1f7}
+  .crm .fld b{color:#1E2740;font-family:var(--fmono);font-size:10px}
+  .crm .fld.miss b{color:var(--danger)}
+  .sidecam{background:radial-gradient(circle at 50% 35%,#7FB0FF,#1A6DF0 75%);border-radius:8px;display:grid;place-items:center;color:#fff;font-size:9px;text-align:center;font-weight:600}
+
+  /* ---- closing blocks ---- */
+  .block{background:var(--n0);border:1px solid var(--border);border-radius:16px;padding:24px 26px;margin:16px 0;box-shadow:var(--sh-sm)}
+  .block h3{font-family:var(--fdisplay);font-size:20px;margin:0 0 4px}
+  .block .h-sub{font-size:13px;color:var(--fg2);margin:0 0 14px}
+  ol.gather{margin:0;padding-left:20px} ol.gather li{margin:9px 0;font-size:14.5px;line-height:1.5}
+  ol.gather li b{color:var(--fg1)}
+  .ladder{display:grid;gap:10px;margin-top:8px}
+  .rung{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-radius:10px;background:var(--n25);border:1px solid var(--border)}
+  .rung .lvl{font-family:var(--fmono);font-size:11px;font-weight:600;color:#fff;padding:3px 9px;border-radius:999px;flex:none;margin-top:1px}
+  .rung.best .lvl{background:var(--success)} .rung.mid .lvl{background:var(--warning)} .rung.low .lvl{background:var(--n500)}
+  .rung p{margin:0;font-size:13.5px;color:var(--fg1)}
+  .redrule{margin-top:14px;background:#FBF0F0;border:1px solid #F3C9CB;border-left:3px solid var(--danger);border-radius:0 8px 8px 0;padding:12px 15px;font-size:14px;color:#8A2C30;font-weight:600}
+
+  .legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+  .lg{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--fg2);background:var(--n25);border:1px solid var(--border);border-radius:999px;padding:5px 12px}
+  .lg .sw{width:10px;height:10px;border-radius:3px}
+  footer{padding:30px 0 60px;color:var(--fg3);font-size:12.5px;text-align:center}
+  @media(max-width:860px){.scene{grid-template-columns:1fr}.map{grid-template-columns:1fr}header h1{font-size:30px}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <span class="badge">● Internal — for review &amp; build · not customer-facing</span>
+    <div class="eyebrow">UC2 · Screen-Share Assessment · Build Storyboard</div>
+    <h1>Admiral Screen-Validation Demo</h1>
+    <p class="sub">A shot-by-shot guide for Ben to <b>build</b> the demo: load the account, index the agent's call, then validate the screen against it — field by field.</p>
+    <div class="metarow">
+      <span><b>Site:</b> Cardiff or Swansea · 2nd-half June 2026 (TBC)</span>
+      <span><b>Avatar:</b> auditor mode of <code style="color:#bcd0f5">agent-18</code></span>
+      <span><b>Line:</b> Admiral Motor · “W” practice env</span>
+      <span><b>Pairs with:</b> ScreenShare Build Spec §4 + User Journey (Act 2)</span>
+    </div>
+    <div class="thesis">“The call sounds great and transcribes great — but there's no evidence what was said on the call actually happened in the system.” The whole demo exists to make that one disconnect <b>visible in a single frame</b> (Scene 8) — Amber's confirmed gap, Daniel's wedge.</div>
+  </div>
+</header>
+
+<nav class="stages">
+  <div class="wrap">
+    <span class="nlabel">Jump to</span>
+    <a href="#s1">① Account info</a>
+    <a href="#s2">② Index the call</a>
+    <a href="#s3">③ Screen validation</a>
+    <a href="#reveal">★ The reveal</a>
+    <a href="#gather">Gather list</a>
+    <a href="#fallback">Fallback</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- stage map -->
+  <div class="map">
+    <div class="col"><div class="tag">STAGE 1</div><h4>Account information</h4><p>Policy + customer context loaded into the auditor avatar.</p><div class="scenes">Scenes 1–2</div></div>
+    <div class="col"><div class="tag">STAGE 2</div><h4>Index the call</h4><p>Ingest the transcript → it becomes the <b>ground truth</b> for validation.</p><div class="scenes">Scenes 3–4</div></div>
+    <div class="col s3"><div class="tag">STAGE 3</div><h4>Screen validation ★</h4><p>Avatar watches the screen, validates each field, flags the discrepancy, triggers review.</p><div class="scenes">Scenes 5–9</div></div>
+  </div>
+  <p style="font-size:13px;color:var(--fg2);margin:14px 2px 0"><b>One-stack tie (say it once, Scene 1):</b> this is one mode of the same <code>agent-18</code> that also role-plays, runs the concierge, and quizzes — one avatar, one knowledge base, one audit trail.</p>
+
+  <!-- ===================== STAGE 1 ===================== -->
+  <div class="stage-head s1" id="s1"><div class="num">1</div><div><h2>Account information</h2><div class="st">The auditor avatar opens with the customer's policy already in front of it.</div></div></div>
+
+  <!-- Scene 1 -->
+  <div class="scene">
+    <div class="viz">
+      <div class="vlabel">On screen</div>
+      <div class="browser">
+        <div class="btab"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span></div>
+        <div class="bbody" style="display:flex;flex-direction:column;gap:11px">
+          <span class="titlestrip">Quote &amp; Policy Assessment — Admiral Motor</span>
+          <div class="ava"><div class="face"></div><div class="who">Quote-assessment assistant<small>auditor mode · agent-18</small></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="detail">
+      <div class="sc-no">SCENE 1</div>
+      <div class="sc-title">Meet the auditor</div>
+      <div class="field avatar"><div class="k">Avatar says</div><div class="bubble">“Morning. I'm the quote-assessment assistant — one mode of the same avatar that runs your role-plays and concierge. I don't change anything in the system. I check that what the agent did matches what was agreed on the call, and I flag anything that needs a human eye.”</div></div>
+      <div class="field builds"><div class="k">Ben builds</div><p>Clone <code>agent-18</code> in eSelf Studio; add the auditor persona (RICECO). Hard constraints: scope-only, no advice/pricing, <b>read-only — never changes the system</b>, flag-for-review when a field can't be read confidently. <i>Components A+B — standard config, buildable now.</i></p></div>
+      <div class="field data"><div class="k">Data</div><p>Admiral motor line; FCA-style global settings (no personal questions).</p></div>
+      <div class="warn"><b>★ Why it matters:</b> the opener pre-frames the <b>read-only + human-in-the-loop</b> story Amber &amp; Adam need for FCA comfort. Land it in the first 10 seconds.</div>
+    </div>
+  </div>
+
+  <!-- Scene 2 -->
+  <div class="scene">
+    <div class="viz">
+      <div class="vlabel">On screen — policy context card</div>
+      <div class="browser"><div class="bbody"><div class="pcard">
+        <div class="prow"><span class="lab">Policyholder</span><span class="val">J. Morgan</span></div>
+        <div class="prow"><span class="lab">Policy no.</span><span class="val">W-4471-08</span></div>
+        <div class="prow"><span class="lab">Cover level</span><span class="val">Comprehensive</span></div>
+        <div class="prow"><span class="lab">Annual premium</span><span class="val">£742.00</span></div>
+        <div class="prow"><span class="lab">Named drivers</span><span class="val">1</span></div>
+      </div></div></div>
+    </div>
+    <div class="detail">
+      <div class="sc-no">SCENE 2</div>
+      <div class="sc-title">The account is already loaded</div>
+      <div class="field avatar"><div class="k">Avatar says</div><div class="bubble">“I've got the customer's account and policy in front of me — motor policy, W-prefixed, the practice instance. Let's check the agent's work against the call.”</div></div>
+      <div class="field builds"><div class="k">Ben builds</div><p>Pre-load the policy context as a <b>static PDF external resource</b> (within the 5-PDF limit). Demo data pre-staged and under our control.</p></div>
+      <div class="field data"><div class="k">Data</div><p>One sanitised motor policy on a <b>W policy number</b> (practice env, not production). Fields: <code>premium_annual</code>, <code>cover_level</code>, <code>additional_driver</code>, <code>addon_breakdown</code>.</p></div>
+      <div class="warn"><b>⚠️ Confirm (component D):</b> production needs the live policy feed bound beyond the 5-PDF/5-web limit — likely via the <b>eSelf API into agent-18</b>. Demo path is static and fine.</div>
+    </div>
+  </div>
+
+  <!-- ===================== STAGE 2 ===================== -->
+  <div class="stage-head s2" id="s2"><div class="num">2</div><div><h2>Index the insurance agent's call</h2><div class="st">The transcript stops being “just a transcript” and becomes the standard the screen must meet.</div></div></div>
+
+  <!-- Scene 3 -->
+  <div class="scene">
+    <div class="viz">
+      <div class="vlabel">On screen — Service Link transcript</div>
+      <div class="browser"><div class="bbody"><div class="transcript">
+        <span class="t-c">Customer:</span> “…and can you quote me the <span class="hl">renewal price</span>?”<br>
+        <span class="t-c">Agent:</span> “That'll be <span class="hl">£742</span> for the year.”<br>
+        <span class="t-c">Customer:</span> “Add <span class="hl">breakdown cover</span> too. And please <span class="hl">add my son as a driver</span>.”
+      </div></div></div>
+    </div>
+    <div class="detail">
+      <div class="sc-no">SCENE 3</div>
+      <div class="sc-title">Here's the call</div>
+      <div class="field avatar"><div class="k">Avatar says</div><div class="bubble">“This is the call. Transcribes beautifully — sounds like a good call. But on its own, that's all it is: a transcript. Watch what happens when I make it the thing we measure against.”</div></div>
+      <div class="field builds"><div class="k">Ben builds</div><p>Ingest the transcript as a <b>static external resource</b> — the session's ground truth. Demo-scoped, under our control.</p></div>
+      <div class="field data"><div class="k">Data</div><p>One <b>anonymised real Admiral motor call transcript</b> (ask Daniel — Admiral wants to feed a real call). Must contain: a <b>quoted price</b>, an <b>added product</b>, and a <b>driver the customer asks to add</b>.</p></div>
+      <div class="warn"><b>⚠️ Confirm (component D):</b> production needs the live <b>Service Link</b> transcript piped in (eSelf API). Service Link transcribes well but does <b>not</b> verify system actions — that's the gap we fill.</div>
+    </div>
+  </div>
+
+  <!-- Scene 4 -->
+  <div class="scene hinge">
+    <div class="viz">
+      <div class="vlabel">On screen — transcript → ground truth</div>
+      <div class="browser"><div class="bbody">
+        <div class="flip">transcript &nbsp;──▶&nbsp; <span class="ghdr" style="margin:0">GROUND TRUTH</span></div>
+        <div class="check pend"><span class="ic">£</span> Price quoted — £742 <span class="w">high</span></div>
+        <div class="check pend"><span class="ic">+</span> Add breakdown cover <span class="w">high</span></div>
+        <div class="check pend"><span class="ic">+</span> Add named driver — son <span class="w">high</span></div>
+      </div></div>
+    </div>
+    <div class="detail">
+      <div class="sc-no">SCENE 4</div>
+      <div class="sc-title">Indexing → ground truth <span class="star violet">★ Conceptual hinge</span></div>
+      <div class="field avatar"><div class="k">Avatar says</div><div class="bubble">“Indexed. Three things were agreed: the price I quoted, an extra product the customer asked for, and a driver they asked to add. They're not just words now — they're the standard the screen has to meet.”</div></div>
+      <div class="field builds"><div class="k">Ben builds</div><p>Define the <b>per-flow field schema</b> — data, not hard-coded (new flow = new schema, <i>same avatar</i>). Use build-spec §4 keys/weights exactly:</p>
+      <p style="margin-top:7px"><code>premium_annual</code> exact-numeric ±£0 · <b>high</b><br><code>addon_breakdown</code> presence · <b>high</b><br><code>additional_driver</code> name present · <b>high</b> ← discrepancy planted here<br><code>cover_level</code> enum · <b>high</b><br><span style="color:var(--fg3)">(full schema also has <code>cover_removed</code> + <code>excess_voluntary</code> at medium — out of scope for this 3-field narrative)</span></p></div>
+      <div class="field data"><div class="k">Data</div><p>Field examples are Daniel's own, verbatim: <i>“the price the agent saw in front of them,” “the additional product… ended up on the policy,” “was the driver added.”</i></p></div>
+      <div class="warn"><b>⚠️ Confirm (component E):</b> whether per-field reconciliation runs <b>in-prompt vs the flow/agent layer (agent-18)</b>, and where the schema executes. The schema <i>design</i> is settled; the execution venue is open.</div>
+      <div class="note"><b>★ Land it slowly.</b> The header flip “transcript → GROUND TRUTH” is the hinge of the whole demo. Everything in Stage 3 measures against this.</div>
+    </div>
+  </div>
+
+  <!-- ===================== STAGE 3 ===================== -->
+  <div class="stage-head s3" id="s3"><div class="num">3</div><div><h2>Screen validation</h2><div class="st">The avatar watches the agent's screen and checks each indexed ask — two pass, one fails.</div></div></div>
+
+  <!-- Scene 5 -->
+  <div class="scene">
+    <div class="viz">
+      <div class="vlabel">On screen — shared screen + avatar</div>
+      <div class="browser"><div class="bbody"><div class="sharepane">
+        <div class="crm">
+          <div style="font-weight:700;color:#1E2740;margin-bottom:5px">CRM · Policy W-4471-08</div>
+          <div class="fld"><span>Annual premium</span><b>£742.00</b></div>
+          <div class="fld"><span>Add-ons</span><b>Breakdown</b></div>
+          <div class="fld"><span>Named drivers</span><b>1</b></div>
+        </div>
+        <div class="sidecam">live<br>screen-<br>share</div>
+      </div></div></div>
+    </div>
+    <div class="detail">
+      <div class="sc-no">SCENE 5</div>
+      <div class="sc-title">Share your screen</div>
+      <div class="field avatar"><div class="k">Avatar says</div><div class="bubble">“Right — share your screen and let's check your work. Show me the policy you just updated.”</div></div>
+      <div class="field builds"><div class="k">Ben builds</div><p>Wire screen understanding (Screenshot Analysis) against the <b>rehearsed surface</b> (see fallback). Mirror Daniel's own line: <i>“let's check your work, share your screen, show me the transaction.”</i></p></div>
+      <div class="field data"><div class="k">Data</div><p>Admiral CRM / customer-care portal on a <b>W policy number</b> — the exact system Admiral asked about verifying against the call recording.</p></div>
+      <div class="warn"><b>⚠️ Confirm — component C, the make-or-break:</b> live continuous screen-share vs periodic screenshot; cadence/latency; <b>field-reading reliability on Admiral's real UI.</b> Untested until Admiral provides a representative sanitised screen flow. The spoken lines in Scenes 6–8 read as confirmed capability — they are not yet.</div>
+    </div>
+  </div>
+
+  <!-- Scene 6 -->
+  <div class="scene">
+    <div class="viz">
+      <div class="vlabel">On screen — validation checklist</div>
+      <div class="browser"><div class="bbody">
+        <div class="check pass"><span class="ic">✓</span> Premium £742 — matches quote <span class="w">PASS · high</span></div>
+        <div class="check pend"><span class="ic">+</span> Breakdown cover <span class="w">pending</span></div>
+        <div class="check pend"><span class="ic">+</span> Named driver — son <span class="w">pending</span></div>
+      </div></div>
+    </div>
+    <div class="detail">
+      <div class="sc-no">SCENE 6</div>
+      <div class="sc-title">Field 1: the price</div>
+      <div class="field avatar"><div class="k">Avatar says</div><div class="bubble">“Price on the policy matches the price I quoted on the call. Pass.”</div></div>
+      <div class="field builds"><div class="k">Ben builds</div><p>Map screen <code>premium_annual</code> → ground-truth quoted price; exact-numeric ±£0; on match emit PASS to the checklist + call-history log.</p></div>
+      <div class="field data"><div class="k">Data</div><p>Quoted price from transcript = premium set in the W policy. <i>Deliberately clean.</i></p></div>
+    </div>
+  </div>
+
+  <!-- Scene 7 -->
+  <div class="scene">
+    <div class="viz">
+      <div class="vlabel">On screen — validation checklist</div>
+      <div class="browser"><div class="bbody">
+        <div class="check pass"><span class="ic">✓</span> Premium £742 — matches quote <span class="w">PASS · high</span></div>
+        <div class="check pass"><span class="ic">✓</span> Breakdown cover — on policy <span class="w">PASS · high</span></div>
+        <div class="check pend"><span class="ic">+</span> Named driver — son <span class="w">pending</span></div>
+      </div></div>
+    </div>
+    <div class="detail">
+      <div class="sc-no">SCENE 7</div>
+      <div class="sc-title">Field 2: the added product</div>
+      <div class="field avatar"><div class="k">Avatar says</div><div class="bubble">“The breakdown cover the customer asked for is on the policy. Pass.”</div></div>
+      <div class="field builds"><div class="k">Ben builds</div><p>Presence check on <code>addon_breakdown</code>; PASS badge + log entry.</p></div>
+      <div class="field data"><div class="k">Data</div><p><i>“The additional product the customer requested ended up on the policy”</i> — Daniel's verbatim example.</p></div>
+    </div>
+  </div>
+
+  <!-- Scene 8 — REVEAL -->
+  <div class="scene reveal" id="reveal">
+    <div class="viz">
+      <div class="vlabel" style="color:#FFB3AE">On screen — the discrepancy</div>
+      <div class="browser"><div class="bbody">
+        <div class="check pass"><span class="ic">✓</span> Premium £742 <span class="w">PASS</span></div>
+        <div class="check pass"><span class="ic">✓</span> Breakdown cover <span class="w">PASS</span></div>
+        <div class="check flag"><span class="ic">!</span> Named driver (son) — NOT on policy <span class="w">FLAG · high</span></div>
+        <div style="margin-top:9px;background:#FDECEC;border:1px solid #F3B3B5;border-radius:8px;padding:9px 11px;font-size:10.5px;color:#8A2C30">
+          <b>Discrepancy</b><br>Agreed on call: <b>add</b> named driver (son)<br>On system: <b>not present</b>
+        </div>
+      </div></div>
+    </div>
+    <div class="detail">
+      <div class="sc-no" style="color:var(--danger)">SCENE 8</div>
+      <div class="sc-title">Field 3: the driver — the discrepancy <span class="star red">★ The reveal</span></div>
+      <div class="field avatar"><div class="k">Avatar says</div><div class="bubble">“Here's the gap. On the call, the customer asked to add a named driver — but on the policy, they're not there. That's exactly the disconnect: a good call, but the system doesn't match it. Flagging this one.”</div></div>
+      <div class="field builds"><div class="k">Ben builds</div><p><b>Plant the discrepancy here.</b> Pre-stage the W policy so the agreed-to-add driver is <i>not</i> on it. <code>additional_driver</code> is a <b>high-weight</b> name-present check (BuildSpec §4) — so a single FLAG legitimately trips the review trigger in Scene 9.</p></div>
+      <div class="field data"><div class="k">Data</div><p>Transcript: customer asks to add a driver. W policy: driver absent. The single deliberate mismatch.</p></div>
+      <div class="note"><b>Why an added driver, not a removed one:</b> the agreed-removal field (<code>cover_removed</code>) is <b>medium</b> weight in the build spec, so a flag there wouldn't on its own justify “high-weight field failed → review.” Planting on <code>additional_driver</code> (high) keeps Scene 9's trigger logic honest — and “was the driver added” is one of Daniel's literal examples. If Admiral prefers a removal, raise <code>cover_removed</code> to high first and confirm, or trip via the score-below-threshold path.</div>
+    </div>
+  </div>
+
+  <!-- Scene 9 -->
+  <div class="scene">
+    <div class="viz">
+      <div class="vlabel">On screen — score → human review</div>
+      <div class="browser"><div class="bbody" style="display:flex;flex-direction:column;gap:9px">
+        <div style="font-size:10.5px;color:#5F6C8A;display:flex;justify-content:space-between"><span>Weighted accuracy</span><span style="font-family:var(--fmono);color:#B4282C;font-weight:600">67%</span></div>
+        <div class="meter"><div class="fill" style="width:67%"></div><div class="thr" style="left:90%"></div></div>
+        <div style="font-size:9px;color:#8B97B2;text-align:right;font-family:var(--fmono)">▲ demo bar 90%</div>
+        <div class="banner">⚠ Below threshold — sending to human review</div>
+        <div class="queue"><div class="qrow"><span class="qflag"></span> Trainer review queue · W-4471-08 · driver mismatch</div></div>
+      </div></div>
+    </div>
+    <div class="detail">
+      <div class="sc-no">SCENE 9</div>
+      <div class="sc-title">Score → human-review trigger</div>
+      <div class="field avatar"><div class="k">Avatar says</div><div class="bubble">“Two of three checks passed, but a high-importance field failed, so we're under the bar we've set for this demo. I've routed it to a human reviewer rather than signing it off — I never change the policy myself, I just make sure a person looks.”</div></div>
+      <div class="field builds"><div class="k">Ben builds</div><p>Threshold: <code>score &lt; threshold</code> <b>OR any single high-weight field FLAGGED → review</b> (demo default 90%; <b>tune to Admiral's real QA bar</b> — gather item 4). Human-review surface: <b>(a) trainer-dashboard queue flag</b> — most visual, enough for demo. Audit: native Studio <b>call history</b> (transcript, AI summary, recording, CSV export). <i>Component G — buildable now.</i></p></div>
+      <div class="field data"><div class="k">Data</div><p>Placeholder threshold &lt;90%; route to trainer dashboard; log feeds <b>TNA</b> — the referral-log → Training Needs Analysis ask <b>Adam</b> raised (Amber as area owner is context).</p></div>
+      <div class="warn"><b>⚠️ Confirm:</b> human-review <i>mechanism</i> (component F — dashboard flag vs xAPI vs named-reviewer notification); and <b>xAPI write-back to Cornerstone/LRS</b> (component H — Cornerstone cloud-vs-legacy still open since 29 May). For the demo the dashboard flag stands alone — <b>don't promise the write-back live.</b></div>
+      <div class="note"><b>★ The close</b> — “I route to a human, I never change the policy myself” — lands the read-only + human-in-the-loop governance story for an FCA buyer. Natural cue to surface <b>data residency</b> (where screen + transcript are processed) if Amber/Adam's security lead is in the room.</div>
+    </div>
+  </div>
+
+  <!-- ===================== GATHER ===================== -->
+  <div class="block" id="gather">
+    <h3>What Ben needs from Admiral first</h3>
+    <p class="h-sub">Gather before the build — item 1 is make-or-break.</p>
+    <ol class="gather">
+      <li><b>A representative, sanitised policy-management screen flow</b> (CRM / customer-care portal, “W” instance). Without it, screen-understanding reliability (⚠️C) is untested. <b>The make-or-break input.</b></li>
+      <li><b>One anonymised real motor call transcript</b> — quoted price + added product + agreed driver <b>add</b> (ask Daniel — Admiral wants a real call).</li>
+      <li><b>A matching W-policy record</b>, pre-staged with the <b>driver-add discrepancy planted</b> (driver absent).</li>
+      <li><b>Admiral's current QA / accuracy pass bar</b> — to tune the placeholder &lt;90% threshold to their real standard.</li>
+      <li><b>Cornerstone cloud-vs-legacy</b> answer (open since 29 May) — before any xAPI write-back is promised.</li>
+      <li><b>Data-residency answer</b> — where screen content + transcript get processed/stored, for Admiral's UK FSI security review.</li>
+    </ol>
+  </div>
+
+  <!-- ===================== FALLBACK ===================== -->
+  <div class="block" id="fallback">
+    <h3>Fallback ladder</h3>
+    <p class="h-sub">Read before the room. Keep the planted discrepancy (Scene 8) intact at every tier — it's the reveal the whole demo is built around.</p>
+    <div class="ladder">
+      <div class="rung best"><span class="lvl">BEST</span><p>Live read of the real (sanitised) “W” screen — avatar validates fields live.</p></div>
+      <div class="rung mid"><span class="lvl">IF SHAKY</span><p>A controlled demo screen we built that the avatar reads reliably.</p></div>
+      <div class="rung low"><span class="lvl">FLOOR</span><p>Pre-staged screenshot + scripted walk-through — and <b>say plainly it's staged.</b></p></div>
+    </div>
+    <div class="redrule">⛔ Never demo the live screen-read on Admiral's real UI for the first time in the room. Rehearse on whatever surface we've confirmed reads reliably.</div>
+  </div>
+
+  <!-- legend -->
+  <div class="block">
+    <h3>Build-status legend</h3>
+    <div class="legend">
+      <span class="lg"><span class="sw" style="background:var(--success)"></span> A · B · G — standard eSelf Studio config, buildable now</span>
+      <span class="lg"><span class="sw" style="background:var(--warning)"></span> C · D · E · F · H — ⚠️ confirm with eSelf / engineering before promising live</span>
+    </div>
+    <p style="font-size:13px;color:var(--fg2);margin:14px 0 0">API-dependent paths (live ground-truth feed, reconciliation layer, xAPI write-back) are gated on <b>eSelf Studio access or eSelf API credentials being available.</b> Field keys/weights are authoritative in <code>Admiral_ScreenShare_BuildSpec_2026-06-02.md</code> §4 — this storyboard follows them.</p>
+  </div>
+
+</div>
+
+<footer>
+  Derek Grant — Vice President, Financial Services · Kaltura · with Ben English — Director of Solutions Engineering<br>
+  Internal build storyboard · 2026-06-02 · pairs with the Screen-Share Build Spec &amp; User Journey (Act 2)
+</footer>
+
+</body>
+</html>
