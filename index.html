@@ -74,31 +74,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
       margin-bottom: 20px;
     }
 
-    .logo-icon {
-      width: 48px;
+    .logo img {
       height: 48px;
-      background: linear-gradient(135deg, var(--blue), var(--blue-dark));
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: 800;
-      font-size: 24px;
-      font-family: var(--fdisplay);
-      box-shadow: var(--sh-md);
-    }
-
-    .logo-text {
-      font-family: var(--fdisplay);
-      font-weight: 700;
-      font-size: 24px;
-      color: var(--ink-900);
-      letter-spacing: -0.02em;
+      width: auto;
     }
 
     .header h1 {
@@ -282,11 +263,7 @@
         font-size: 24px;
       }
 
-      .logo {
-        flex-direction: column;
-      }
-
-      .button-group {
+.button-group {
         flex-direction: column;
       }
     }
@@ -297,8 +274,7 @@
 <div class="container">
   <div class="header">
     <div class="logo">
-      <div class="logo-icon">⚓</div>
-      <div class="logo-text">Admiral</div>
+      <img src="https://mktgblobpubaccess1.blob.core.windows.net/eui-frontend-assets/admiral/images/logos/admiral-logo.svg" alt="Admiral" />
     </div>
     <h1>Vehicle Information</h1>
     <p>Help us get to know your vehicle better for an accurate quote</p>
